@@ -25,6 +25,12 @@ class TaskDetailSerializer(serializers.ModelSerializer):
         )
 
 
+class ClickDoneSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Task
+        fields = ('done',)
+
+
 class TaskCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task

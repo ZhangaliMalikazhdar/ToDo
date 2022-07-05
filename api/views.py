@@ -8,9 +8,19 @@ from .models import *
 from .serializers import *
 
 
-class ListTask(generics.ListCreateAPIView):
+class ListTable(generics.ListCreateAPIView):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
+
+
+class DetailTask(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Task.objects.all()
+    serializer_class = TaskDetailSerializer
+
+
+class ClickDone(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Task.objects.all()
+    serializer_class = ClickDoneSerializer
 
 
 @api_view(['GET', 'POST'])
@@ -34,8 +44,8 @@ def list_all_tasks(request):
         serializer = TaskCreateSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response({"status": "success", "data": serializer.data}, status=status.HTTP_201_CREATED)
-        return Response({'error': serializer.error}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return JsonResponse({"status": "success", "data": serializer.data}, status=status.HTTP_201_CREATED, safe=False)
+        return JsonResponse({'error': serializer.error}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 @api_view(['GET', 'PATCH', 'DELETE'])

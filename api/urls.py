@@ -2,8 +2,7 @@ from django.urls import path
 from .views import *
 
 urlpatterns = [
-    path('todo/', list_all_tasks),
-    path('todo/<int:pk>/', get_task),
-    path('todo/<int:pk>/execute/', click_done),
-
+    path('todo/', ListTable.as_view()),
+    path('todo/<int:pk>/', DetailTask.as_view()),
+    path('todo/<int:pk>/execute/', ClickDone.as_view()),
 ]
